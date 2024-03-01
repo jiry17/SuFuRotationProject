@@ -4,6 +4,8 @@
 
 请阅读 [SuFu 主页](http://8.140.207.65/) 中的第三节 Example: Maximum Suffix Sum，并在线上 Demo 中运行例子 Mts。
 
+注意：目前 SuFu 的接口语言使用了 lambda 演算及其变种中的一些概念（例如 lambda 表达式和 fix 操作符）。如果你对这些概念感到陌生，可以参考北京大学的课程[编程语言的设计原理](https://pku-dppl.github.io/2023/lectures.html)（特别是课件 The Untyped Lambda Calculus 和 Simply Typed Lambda-Calculus）.
+
 如果出现了网站崩溃、无法连接的情况，请随时与负责的同学联系。
 
 ### Task1
@@ -56,7 +58,7 @@ Inductive SnocList = lin Unit | snoc {SnocList, Int};
 
 ### Task 5 
 
-01 背包问题是一个经典的动态规划问题，其定义可以参考[这篇文章](https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/)。在线上 demo 中有一个内置的例子 0/1Knapsack。该例子中的参考程序是对 01 背包问题的一个穷举程序。给定 $n$ 个物品，该程序会产生 $2^n$ 种将物品放进背包的方案，并在所有不超过重量限制的方案中，选择价值和最大的程序。
+01 背包问题是一个经典的动态规划问题，其定义可以参考[这篇文章](https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/)。在线上 demo 中有一个内置的例子 0/1Knapsack。该例子中的参考程序是对 01 背包问题的一个穷举程序。给定 $n$ 个物品，该程序会产生 $2^n$ 种将物品放进背包的方案，并在所有不超过重量限制的方案中，计算可以达到的最大价值和。
 
 **Q5.1**: 运行这个例子并在参考程序与优化结果之间进行比较，尝试回答以下问题。SuFu 做了什么优化？结果程序的时间复杂度是什么？结果程序和动态规划算法的联系是什么？
 
