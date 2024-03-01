@@ -54,8 +54,6 @@ opt-3.f
 在single_pass上传入sum函数，然后在run的类型改为 List -> Reframe List，结果是run完成了sum的工作。
 在single_pass上传入mts函数，然后在run的类型改为 List -> Reframe List，结果是run完成了mts的工作。
 
-==这里的问题是，如果不给single_pass传入一个函数，就不可能直接把run函数给优化掉？==
-
 
 ### Task3
 
@@ -115,6 +113,14 @@ sliding_window函数本质是以滑动窗口这个算法的形式遍历了List�
 最后，让我们尝试一道竞赛真题。`building-block.pdf` 中展示的是 NOIP2013 提高组的一道真题，`building-black.f` 中是对应的穷举程序。
 
 **Q6.1**: 请根据之前 5 个任务的经验，尝试使用 SuFu 将其优化为一个线性时间的程序。
+1. 只给 Inductive NList 里的 List 标上，不行，RuntimeError
+2. operation 的输出标上，RuntimeError
+3. remove_prefix 和 operation 的输出标上，不行，RuntimeError
+4. mapcons 输入输出都标，remove_prefix 和 operation 的输出标上, TimeOut
+5. 标记 remove_prefix 的输入输出，operation 的输出，RuntimeError
+6. concat mapcons remove_prefix 输入输出，operation 输出，RuntimeError
+7. concat mapcons 输入输出，remove_prefix operation 输出，
+
 
 
 ### 一些问题
@@ -125,4 +131,4 @@ sliding_window函数本质是以滑动窗口这个算法的形式遍历了List�
 或者有一些类型依赖，那么一般就都要标上。
 3. 如何丢掉更多的部分解？例如背包/lis问题，优化结果是把所有Plan列出来，然后再计算结果，虽然Plan的表示本身压缩了，但Plan的数量并未减少，依然是指数大小。但是如果用动态规划，可以变成二次大小？
 确实没有压缩成动态规划
-
+4. 这里的问题是，如果不给single_pass传入一个函数，就不可能直接把run函数给优化掉？

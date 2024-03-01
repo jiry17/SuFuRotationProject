@@ -8,7 +8,7 @@ Inductive List = nil Unit | cons {Int, List};
 Inductive NList = nnil Unit | ncons {List, NList};
 
 concat = fix (
-  \f: Reframe NList -> Reframe NList -> Reframe NList. \xs: Reframe NList. \ys: Reframe NList.
+  \f: NList -> NList -> NList. \xs: NList. \ys: NList.
   match xs with
     nnil _ -> ys
   | ncons {h, t} -> ncons {h, f t ys}
