@@ -12,10 +12,11 @@ append = \w: Int. fix (
 prefixes = fix (
   \f: Reframe List -> List -> Reframe NList. \prefix: Reframe List. \xs: List.
   match xs with
-    nil _ -> ncons {prefix, nnil unit}
-  | cons {h, t} -> ncons {prefix, f (append h prefix) t}
+    nil _ -> 
+         v  rewrite (label (ncons {(unlabel prefix), nnil unit}))
+  | cons {h, t} -> rewrite (label (ncons {(unlabel prefix), unlabel (f (label (append h (unlabel prefix))) t)}))
   end
-) (nil unit);
+) (rewrite (label (nil unit)));
 
 
 sum = fix (
@@ -52,4 +53,4 @@ length = fix (
   end
 );
 
-main = \xs: List. length (filter is_pos (map sum (prefixes xs)));
+main = \xs: List. rewrite (length (filter is_pos (map sum (unlabel (prefixes xs)))));
