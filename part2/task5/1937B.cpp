@@ -22,5 +22,5 @@ int main() {
 		}
 		path[0][i] = ch[0][i] + path[0][i];
 	}
-	printf("%%d\n", way[1]);
+	printf("%d\n", way[1]);
 }

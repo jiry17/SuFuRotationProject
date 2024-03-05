@@ -66,51 +66,39 @@ list_lt = fix (
 );
 
 cal = fix (
-  \f: List -> List -> List -> List -> Int -> Int.
+  \f: List -> List -> {List, List, Int}.
   \ch0: List.
   \ch1: List.
-  \path0: List.
-  \path1: List.
-  \way: Int.
-  match ch0 with
-    cons {h0, t0} ->
-      match ch1 with
-        cons {h1, t1} ->
-          let path11 = cons {h1, path1} in
-          let path01 = path0 in
-          if list_lt path11 path01
-          then f t0 t1 (cons {h0, path11}) path11 1
-          else if list_eq path11 path01
-               then f t0 t1 (cons {h0, path01}) path11 (+ way 1)
-               else f t0 t1 (cons {h0, path01}) path11 way
-      end
-  | single h0 ->
-      match ch1 with
-        single h1 ->
-          let path11 = cons {h1, path1} in
-          let path01 = path0 in
-          if list_lt path11 path01
-          then 1
-          else if list_eq path11 path01
-               then (+ way 1)
-               else way
-      end
+  match {ch0, ch1} with
+    {cons {h0, t0}, cons {h1, t1}} ->
+      let tmp = f t0 t1 in
+      let path00 = tmp.1 in
+      let path10 = tmp.2 in
+      let way0 = tmp.3 in
+      let path11 = cons {h1, path10} in
+      let path01 = path00 in
+      let way1 = way0 in
+      if list_lt path11 path01
+      then {cons {h0, path11}, path11, 1}
+      else if list_eq path11 path01
+           then {cons {h0, path01}, path11, + way1 1}
+           else {cons {h0, path01}, path11, way1}
+  | {single h0, single h1} ->
+      let path1 = single h1 in
+      let path0 = cons {h0, path1} in
+      let way = 1 in
+      {path0, path1, way}
   end
 );
 
 main = \inp: Input.
   match inp with
-    {xs, ys} ->
-      let ch0 = reverse xs in
-      let ch1 = reverse ys in
-      let path1 = single (head ch1) in
-      let path0 = cons {head ch0, path1} in
-      cal (tail ch0) (tail ch1) path0 path1 1
+    {xs, ys} -> (cal xs ys).3
   end
 ;
 
 /*
-xs = cons {0, single 0};
-ys = cons {0, single 0};
+xs = cons {0, cons {0, cons {1, cons {0, cons {0, cons {1, cons {1, cons {1, single 1}}}}}}}};
+ys = cons {1, cons {1, cons {1, cons {0, cons {1, cons {1, cons {0, cons {1, single 1}}}}}}}};
 main {xs, ys};
 */

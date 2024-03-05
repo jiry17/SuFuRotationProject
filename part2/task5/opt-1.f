@@ -43,7 +43,7 @@ reverse = fix (
 );
 
 list_eq = fix (
-  \f: List -> List -> Bool. \xs: List. \ys: List.
+  \f: Reframe List -> Reframe List -> Bool. \xs: Reframe List. \ys: Reframe List.
   match {xs, ys} with
     {cons {xh, xt}, cons {yh, yt}} ->
       if == xh yh then f xt yt else false
@@ -53,7 +53,7 @@ list_eq = fix (
 );
 
 list_lt = fix (
-  \f: List -> List -> Bool. \xs: List. \ys: List.
+  \f: Reframe List -> Reframe List -> Bool. \xs: Reframe List. \ys: Reframe List.
   match {xs, ys} with
     {cons {xh, xt}, cons {yh, yt}} ->
       if == xh yh then f xt yt
@@ -66,7 +66,7 @@ list_lt = fix (
 );
 
 cal = fix (
-  \f: List -> List -> List -> List -> Int -> Int.
+  \f: List -> List -> Reframe List -> Reframe List -> Int -> Int.
   \ch0: List.
   \ch1: List.
   \path0: List.
@@ -108,9 +108,3 @@ main = \inp: Input.
       cal (tail ch0) (tail ch1) path0 path1 1
   end
 ;
-
-/*
-xs = cons {0, single 0};
-ys = cons {0, single 0};
-main {xs, ys};
-*/
