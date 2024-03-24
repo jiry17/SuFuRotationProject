@@ -77,4 +77,14 @@ search = fix (
   merge (map f ops)
 );
 
-run = \xs: List. search xs;
+run = fix (
+    \f: List -> Reframe List. \xs: List.
+    match xs with
+      nil _ -> nil unit
+    | cons {h, t} -> cons {h, f t}
+    end
+  );
+
+single_pass = \g: List -> Int. \xs: List. g (run xs);
+
+main = \xs: List. single_pass search xs;
